@@ -1,31 +1,21 @@
 {
-	"name": "AVMATRIX_PTZ",
-	"version": "1.1.3",
-	"api_version": "1.0.0",
-	"keywords": [
-		"Protocol",
-		"Generic"
-	],
-	"manufacturer": "AVMATRIX",
-	"product": "PTZ12xx",
-	"shortname": "PTZ12xx",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-generic-http.git"
-	},
-	"author": "William Viker <william@bitfocus.io>",
-	"contributors": [
-		"Keith Rocheck <keith.rocheck@gmail.com>",
-		"Jeffrey Davidsz <jeffrey.davidsz@vicreo.eu>",
-		"Joseph Adams <josephdadams@gmail.com>"
-	],
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/bitfocus/companion-module-generic-http/issues"
-	},
-	"homepage": "https://github.com/bitfocus/companion-module-generic-http#readme"
-}
+	"name": "avmatrix-ptz12xx",
+	  "version": "1.0.0",
+	  "api_version": "1.0.0",
+	  "keywords": [
+		  "camera",
+		  "ptz"
+	  ],
+	  "manufacturer": "AVMATRIX",
+	  "product": "ptz12xx",
+	  "shortname": "ptz12xx",
+	  "description": "AVMATRIX PTZ12xx camera Module",
+	  "main": "index.js",
+	  "scripts": {
+		  "test": "echo \"Error: no test specified\" && exit 1"
+	  },
+	  "author": "Manuel Fehren <manuel.fehren@gmail.com>",
+	  "homepage": "www.google.de",
+	  "license": "MIT"
+  }
+  
