@@ -206,23 +206,23 @@ instance.prototype.action = function (action) {
 	
 
 	if (actionCmd === 'call_preset'){
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_call","byValue":${action.options.preset_id}}}}`
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_call","byValue":${action.options.preset_id}}}}`
 		self.send_cmd(cmd)
 		self.setVariable('last_position', action.options.preset_id);
 	}
 	if (actionCmd === 'set_preset'){
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_call","byValue":${action.options.preset_id}}}}`
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_call","byValue":${action.options.preset_id}}}}`
 		self.send_cmd(cmd)
 		self.setVariable('last_position', action.options.preset_id);
 	}
 	else if (actionCmd === 'set_focus'){
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${action.options.focuszone}},"nChannel":0}]}}`
+		cmd = `{"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${action.options.focuszone}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam":[{"stAF": {"emAFMode":${action.options.focusmode}},"nChannel":0}]}}`
+		cmd = `{"SetEnv":{"VideoParam":[{"stAF": {"emAFMode":${action.options.focusmode}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"nSensitivity":${action.options.focussensitivity}},"nChannel":0}]}}`
+		cmd = `{"SetEnv":{"VideoParam": [{"stAF": {"nSensitivity":${action.options.focussensitivity}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 	}
 	else if (actionCmd === 'move'){
@@ -249,9 +249,9 @@ instance.prototype.send_cmd = function(data){
 			self.status(self.STATUS_OK)
 		}
 	}
-	data = `http://${self.config.ip}/ajaxcom?szCmd=` + data
-	self.log('debug', data)
-	self.system.emit(`rest_get`, data, errorHandler, header)
+	url = `http://${self.config.ip}/ajaxcom?szCmd=` + data
+	self.log('debug', url)
+	self.system.emit(`rest_get`, url, errorHandler, header)
 }
 
 
