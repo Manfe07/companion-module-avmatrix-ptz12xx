@@ -216,17 +216,20 @@ instance.prototype.action = function (action) {
 		self.setVariable('last_position', action.options.preset_id);
 	}
 	else if (actionCmd === 'set_focus'){
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${actions.options.focuszone}},"nChannel":0}]}}`
+		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${action.options.focuszone}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 
 		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam":[{"stAF": {"emAFMode":${action.options.focusmode}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 
-		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"nSensitivity":${actions.options.focussensitivity}},"nChannel":0}]}}`
+		cmd = `http://${self.config.ip}/ajaxcom?szCmd={"SetEnv":{"VideoParam": [{"stAF": {"nSensitivity":${action.options.focussensitivity}},"nChannel":0}]}}`
 		self.send_cmd(cmd)
 	}
-	else if (actionCmd === 'videosettings'){
-
+	else if (actionCmd === 'move'){
+		if (action.options.focuszone == ){
+			cmd = `{"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${action.options.focuszone}},"nChannel":0}]}}`
+			self.send_cmd(cmd)
+		}
 	}
 	
 }
@@ -246,7 +249,7 @@ instance.prototype.send_cmd = function(data){
 			self.status(self.STATUS_OK)
 		}
 	}
-
+	data = `http://${self.config.ip}/ajaxcom?szCmd=` + data
 	self.log('debug', data)
 	self.system.emit(`rest_get`, data, errorHandler, header)
 }
