@@ -211,7 +211,7 @@ instance.prototype.action = function (action) {
 		self.setVariable('last_position', action.options.preset_id);
 	}
 	if (actionCmd === 'set_preset'){
-		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_call","byValue":${action.options.preset_id}}}}`
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"preset_set","byValue":${action.options.preset_id}}}}`
 		self.send_cmd(cmd)
 		self.setVariable('last_position', action.options.preset_id);
 	}
