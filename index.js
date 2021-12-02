@@ -127,6 +127,32 @@ instance.prototype.FIELD_FOCOSZONE = {
 	]
 }
 
+instance.prototype.FIELD_STARTSTOP = {
+	type: 'dropdown',
+	label: 'Focus-Zone',
+	id: 'focuszone',
+	default: 3,
+	choices: [
+		{ id: 'Start', label: 'Start'},
+		{ id: 'Stop', label: 'Stop'},
+	]
+}
+
+instance.prototype.FIELD_MOVEMENT = {
+	type: 'dropdown',
+	label: 'Focus-Zone',
+	id: 'focuszone',
+	default: 3,
+	choices: [
+		{ id: 'zoomIn', label: 'Zoom IN'},
+		{ id: 'zoomOut', label: 'Zoom OUT'},
+		{ id: 'up', label: 'Up'},
+		{ id: 'down', label: 'Down'},
+		{ id: 'left', label: 'Left'},
+		{ id: 'right', label: 'Right'},
+	]
+}
+
 instance.prototype.FIELD_FOCOSSENSITIVITY = {
 	type: 'dropdown',
 	label: 'Focus-Sensitivity',
@@ -184,6 +210,10 @@ instance.prototype.actions = function (system) {
 			label: 'Set Focus',
 			options: [self.FIELD_FOCOSMODE, self.FIELD_FOCOSZONE, self.FIELD_FOCOSSENSITIVITY]
 		},
+		move: {
+			label: 'Move PTZ',
+			options: [self.FIELD_STARTSTOP, self.FIELD_MOVEMENT]
+		},
 		videosettings: {
 			label: 'Video-Settings',
 			options: [self.FIELD_FRAMRATE]
@@ -199,6 +229,7 @@ instance.prototype.action = function (action) {
 		set_preset:	'set_preset',
 		set_focus: 'set_focus',
 		videosettings: 'videosettings'
+		move: 'move'
 	}
 	var actionCmd = actionCmd[action.action]
 	
@@ -226,10 +257,8 @@ instance.prototype.action = function (action) {
 		self.send_cmd(cmd)
 	}
 	else if (actionCmd === 'move'){
-		if (action.options.focuszone == ){
-			cmd = `{"SetEnv":{"VideoParam": [{"stAF": {"emAFZone":${action.options.focuszone}},"nChannel":0}]}}`
-			self.send_cmd(cmd)
-		}
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"${action.options.movement}_${action.options.starttop}","byValue":50}}}`
+		self.send_cmd(cmd)
 	}
 	
 }
