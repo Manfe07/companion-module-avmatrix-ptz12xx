@@ -189,6 +189,9 @@ instance.prototype.actions = function (system) {
 			label: 'Move PTZ',
 			options: [self.FIELD_MOVEMENT, self.FIELD_STARTSTOP]
 		},
+		home: {
+			label: 'Go Home',
+		},
 		set_focus: {
 			label: 'Set Focus',
 			options: [self.FIELD_FOCOSMODE, self.FIELD_FOCOSZONE, self.FIELD_FOCOSSENSITIVITY]
@@ -208,7 +211,8 @@ instance.prototype.action = function (action) {
 		set_preset:	'set_preset',
 		set_focus: 'set_focus',
 		videosettings: 'videosettings',
-		move: 'move'
+		move: 'move',
+		home: 'home'
 	}
 	var actionCmd = actionCmd[action.action]
 	
@@ -237,6 +241,10 @@ instance.prototype.action = function (action) {
 	}
 	else if (actionCmd === 'move'){
 		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"${action.options.movement}_${action.options.startstop}","byValue":50}}}`
+		self.send_cmd(cmd)
+	}
+	else if (actionCmd === 'home'){
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"go_home","byValue":50}}}`
 		self.send_cmd(cmd)
 	}
 	
@@ -328,9 +336,30 @@ instance.prototype.init_presets = function() {
 						startstop: 'stop'
 					},
 				}]
-		})
-	
+		})	
 	}
+
+	//Go Home Button
+	presets.push({
+		category: 'Movement Presets',
+			label: 'Home',
+			bank: {
+				style: 'png',
+				text: '',
+				size: 'auto',
+				alignment: 'center:center',
+				pngalignment: 'center:center',
+				color: 16777215,
+				bgcolor: 0,
+				latch: false,
+				relative_delay: false,
+				png64: images.star,
+			},
+			actions: [{
+				action: 'home',
+			}, ],
+	})
+
 	
     self.setPresetDefinitions(presets)
 }
