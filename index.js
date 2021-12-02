@@ -129,9 +129,8 @@ instance.prototype.FIELD_FOCOSZONE = {
 
 instance.prototype.FIELD_STARTSTOP = {
 	type: 'dropdown',
-	label: 'Focus-Zone',
-	id: 'focuszone',
-	default: 3,
+	label: 'Start / Stop',
+	id: 'startstop',
 	choices: [
 		{ id: 'Start', label: 'Start'},
 		{ id: 'Stop', label: 'Stop'},
@@ -140,9 +139,8 @@ instance.prototype.FIELD_STARTSTOP = {
 
 instance.prototype.FIELD_MOVEMENT = {
 	type: 'dropdown',
-	label: 'Focus-Zone',
-	id: 'focuszone',
-	default: 3,
+	label: 'Movement',
+	id: 'movement',
 	choices: [
 		{ id: 'zoomIn', label: 'Zoom IN'},
 		{ id: 'zoomOut', label: 'Zoom OUT'},
@@ -206,13 +204,13 @@ instance.prototype.actions = function (system) {
 			label: 'Store Preset',
 			options: [self.FIELD_PRESET]
 		},
+		move: {
+			label: 'Move PTZ',
+			options: [self.FIELD_MOVEMENT, self.FIELD_STARTSTOP]
+		},
 		set_focus: {
 			label: 'Set Focus',
 			options: [self.FIELD_FOCOSMODE, self.FIELD_FOCOSZONE, self.FIELD_FOCOSSENSITIVITY]
-		},
-		move: {
-			label: 'Move PTZ',
-			options: [self.FIELD_STARTSTOP, self.FIELD_MOVEMENT]
 		},
 		videosettings: {
 			label: 'Video-Settings',
@@ -228,7 +226,7 @@ instance.prototype.action = function (action) {
 		call_preset: 'call_preset',
 		set_preset:	'set_preset',
 		set_focus: 'set_focus',
-		videosettings: 'videosettings'
+		videosettings: 'videosettings',
 		move: 'move'
 	}
 	var actionCmd = actionCmd[action.action]
