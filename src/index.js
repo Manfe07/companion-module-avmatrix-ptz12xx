@@ -1,6 +1,9 @@
-var instance_skel = require('../../instance_skel')
+const instance_skel = require('../../../instance_skel')
+const images = require('./images')
+
 var debug
 var log
+
 
 function instance(system, id, config) {
 	var self = this
@@ -48,7 +51,12 @@ instance.prototype.init = function () {
 			label: 'Camera ID',
 			name: 'cam_id'
 		},
+		{
+			label: 'Movement Speed',
+			name: 'movement_speed'
+		},
 	] );
+	self.setVariable('movement_speed',50)
 	debug = self.debug
 	log = self.log
 }
@@ -165,33 +173,6 @@ instance.prototype.FIELD_FOCOSSENSITIVITY = {
 
 
 
-instance.prototype.init_presets = function() {
-    var self = this
-    var presets = []
-	for (let i = 1; i <= 8; i++) {
-		presets.push({
-				category: 'Position Presets',
-				label: 'Pos ' + i,
-				bank: {
-					style: 'text',
-					text: 'Cam\\n' + self.config.cam_id + '.' + i,
-					size: 'auto',
-					color: '16777215',
-					bgcolor: self.rgb(0, 0, 0),
-				},
-				actions: [{
-					action: 'call_preset',
-					options: {
-						preset_id: i,
-					},
-				}, ],
-			}
-		)
-
-	}
-    self.setPresetDefinitions(presets)
-}
-
 instance.prototype.actions = function (system) {
 	var self = this
 
@@ -283,6 +264,76 @@ instance.prototype.send_cmd = function(data){
 
 
 
+
+instance.prototype.init_presets = function() {
+    var self = this
+    var presets = []
+	for (let i = 1; i <= 8; i++) {
+		presets.push({
+				category: 'Position Presets',
+				label: 'Pos ' + i,
+				bank: {
+					style: 'text',
+					text: 'Cam\\n' + self.config.cam_id + '.' + i,
+					size: 'auto',
+					color: '16777215',
+					bgcolor: self.rgb(0, 0, 0),
+				},
+				actions: [{
+					action: 'call_preset',
+					options: {
+						preset_id: i,
+					},
+				}, ],
+			}
+		)
+
+	}
+
+	let  movements = {
+		'Zoom In': ['zoomadd', images.zoom_in],
+		'Zoom Out': ['zoomdec', images.zoom_out],
+		'Up': ['up', images.up],
+		'Down': ['down', images.down],
+		'Left': ['left', images.left],
+		'Right': ['right', images.right],
+	}
+	for (let value in movements) {
+		presets.push({
+			category: 'Movement Presets',
+				label: value,
+				bank: {
+					style: 'png',
+					text: '',
+					size: 'auto',
+					alignment: 'center:center',
+					pngalignment: 'center:center',
+					color: 16777215,
+					bgcolor: 0,
+					latch: false,
+					relative_delay: false,
+					png64: movements[value][1],
+				},
+				actions: [{
+					action: 'move',
+					options: {
+						movement: movements[value][0],
+						startstop: 'start'
+					},
+				}, ],
+				release_actions: [{
+					action: 'move',
+					options: {
+						movement: movements[value][0],
+						startstop: 'stop'
+					},
+				}]
+		})
+	
+	}
+	
+    self.setPresetDefinitions(presets)
+}
 
 instance_skel.extendedBy(instance)
 exports = module.exports = instance
