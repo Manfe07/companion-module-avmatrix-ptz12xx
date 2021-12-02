@@ -132,8 +132,8 @@ instance.prototype.FIELD_STARTSTOP = {
 	label: 'Start / Stop',
 	id: 'startstop',
 	choices: [
-		{ id: 'Start', label: 'Start'},
-		{ id: 'Stop', label: 'Stop'},
+		{ id: 'start', label: 'Start'},
+		{ id: 'stop', label: 'Stop'},
 	]
 }
 
@@ -142,8 +142,8 @@ instance.prototype.FIELD_MOVEMENT = {
 	label: 'Movement',
 	id: 'movement',
 	choices: [
-		{ id: 'zoomIn', label: 'Zoom IN'},
-		{ id: 'zoomOut', label: 'Zoom OUT'},
+		{ id: 'zoomadd', label: 'Zoom IN'},
+		{ id: 'zoomdec', label: 'Zoom OUT'},
 		{ id: 'up', label: 'Up'},
 		{ id: 'down', label: 'Down'},
 		{ id: 'left', label: 'Left'},
@@ -255,7 +255,7 @@ instance.prototype.action = function (action) {
 		self.send_cmd(cmd)
 	}
 	else if (actionCmd === 'move'){
-		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"${action.options.movement}_${action.options.starttop}","byValue":50}}}`
+		cmd = `{"SysCtrl":{"PtzCtrl":{"nChanel":0,"szPtzCmd":"${action.options.movement}_${action.options.startstop}","byValue":50}}}`
 		self.send_cmd(cmd)
 	}
 	
