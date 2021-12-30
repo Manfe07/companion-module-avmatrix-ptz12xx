@@ -152,6 +152,8 @@ instance.prototype.FIELD_MOVEMENT = {
 	choices: [
 		{ id: 'zoomadd', label: 'Zoom IN'},
 		{ id: 'zoomdec', label: 'Zoom OUT'},
+		{ id: 'focusadd', label: 'Focus IN'},
+		{ id: 'focusdec', label: 'focus OUT'},
 		{ id: 'up', label: 'Up'},
 		{ id: 'down', label: 'Down'},
 		{ id: 'left', label: 'Left'},
